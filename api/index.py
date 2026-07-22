@@ -1,7 +1,14 @@
 import sys
 import os
+import traceback
 
-# Memastikan root folder masuk ke sys.path supaya import internal project aman
+# Tambahkan path root repository ke sys.path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from main import app
+try:
+    from main import app
+except Exception as e:
+    print("=== UNHANDLED IMPORT ERROR IN MAIN.PY ===")
+    print(traceback.format_exc())
+    print("=========================================")
+    raise e
