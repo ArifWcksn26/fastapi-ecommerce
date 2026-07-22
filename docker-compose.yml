@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # 1. Service Database PostgreSQL
+  db:
+    image: postgres:15-alpine
+    container_name: ecommerce_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: ecommerce_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. Service Redis (Cache & Rate Limiter Storage)
+  redis:
+    image: redis:7-alpine
+    container_name: ecommerce_redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+  # 3. Service FastAPI Application
+  web:
+    build: .
+    container_name: ecommerce_api
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      # Koneksi DB dan Redis di dalam Docker menggunakan nama service (bukan localhost)
+      DATABASE_URL: postgresql://postgres:postgrespassword@db:5432/ecommerce_db
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  postgres_data:

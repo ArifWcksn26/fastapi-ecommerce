@@ -1,0 +1,33 @@
+name: E-Commerce CI Pipeline
+
+# Trigger: Pipeline ini akan jalan setiap ada push atau Pull Request ke branch main
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Ambil kode dari repository GitHub
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. Setup environment Docker di runner GitHub
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 3. Test Build Docker Image (Memastikan Dockerfile tidak error)
+      - name: Build Docker Image
+        run: |
+          docker build -t ecommerce-api:test .
+
+      # 4. Test Docker Compose (Menyagakan web, postgres, dan redis)
+      - name: Test Docker Compose Setup
+        run: |
+          docker compose up -d
+          docker compose ps
+          docker compose down
