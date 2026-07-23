@@ -33,14 +33,13 @@ A high-performance RESTful API for an e-commerce backend built with **FastAPI**,
 ### 2. Environment Variables
 Create a `.env` file in the root directory:
 
-`env
+```env
 # Gunakan Port 6543 (Transaction Pooler) untuk Serverless/Vercel
 DATABASE_URL=postgresql://<user>:<password>@<supabase-host>:6543/<dbname>
 REDIS_URL=rediss://default:<password>@<upstash-host>:6379
-```
-```
+
 # Clone repository
-git clone [https://github.com/username/your-repo-name.git](https://github.com/username/your-repo-name.git)
+git clone [https://github.com/ArifWcksn26/your-repo-name.git](https://github.com/ArifWcksn26/your-repo-name.git)
 cd your-repo-name
 
 # Setup Virtual Environment
@@ -52,7 +51,3 @@ pip install -r requirements.txt
 
 # Run Server
 uvicorn app.main:app --reload
-
-## 👤 Author
-
-* **Arif Wicaksono** - [GitHub Profile](https://github.com/ArifWcksn26)
