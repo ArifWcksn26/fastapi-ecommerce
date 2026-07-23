@@ -48,6 +48,11 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install Dependencies
 pip install -r requirements.txt
+```
+
+## 👤 Author
+
+* **Arif Wicaksono** - [GitHub Profile](https://github.com/ArifWcksn26)
 
 # Run Server
 uvicorn app.main:app --reload
