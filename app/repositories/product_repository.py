@@ -52,7 +52,7 @@ class ProductRepository:
             except Exception as e:
                 print(f"Gagal simpan ke Redis: {e}")
 
-        return 
+        return products 
     
     @staticmethod
     def invalidate_product_cache():

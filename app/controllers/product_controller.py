@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException, Request  
+from fastapi.encoders import jsonable_encoder
 from app.core.limiter import limiter
 from app.repositories.product_repository import ProductRepository
 
@@ -11,7 +12,7 @@ def get_products(request: Request):
         products = ProductRepository.get_all_products()
         return {
             "status": "success",
-            "data": products
+            "data": jsonable_encoder(products)
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
